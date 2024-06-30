@@ -27,7 +27,7 @@
 				<div class="tab-content" id="pills-tabContent">
 					<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
 						tabindex="0">
-						<div class="container">
+						<div class="container-fluid">
 							<div v-if="successo" class="alert alert-success mb-4" role="alert">
 								<i class="fa fa-check"></i> Mesa adicionada com sucesso!
 							</div>
@@ -88,7 +88,7 @@
 					<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
 						tabindex="0">
 
-						<div class="container">
+						<div class="container-fluid">
 							<div class="row">
 								<div class="col-12 mt-5">
 									<table class="table">

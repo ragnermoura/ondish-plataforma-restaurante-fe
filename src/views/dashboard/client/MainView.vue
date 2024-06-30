@@ -12,7 +12,7 @@
                     <h5 v-if="!mostrarSkeleton" class="frase-nome mb-3">Olá, {{ nome }} {{ sobrenome }}. Bem-vindo de
                         volta ao Software Admin!</h5>
 
-                    <div class="container">
+                    <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-3 mt-3">
                                 <div class="card">
@@ -24,7 +24,8 @@
                                             <div class="col-8">
                                                 <h1 style="font-size: 45px;"><strong>70 </strong></h1>
                                                 <h6 style="margin-top: -13px; font-weight: 100;">Total de Pedidos</h6>
-                                                <span style="font-size: 10px; font-weight: 100; margin-top: -100px !important;" >Hoje</span>
+                                                <span
+                                                    style="font-size: 10px; font-weight: 100; margin-top: -100px !important;">Hoje</span>
                                             </div>
                                         </div>
                                     </div>
@@ -40,7 +41,8 @@
                                             <div class="col-8">
                                                 <h1 style="font-size: 45px;"><strong>0 </strong></h1>
                                                 <h6 style="margin-top: -13px; font-weight: 100;"> Pedidos entregues</h6>
-                                                <span style="font-size: 10px; font-weight: 100; margin-top: -100px !important;" >Hoje</span>
+                                                <span
+                                                    style="font-size: 10px; font-weight: 100; margin-top: -100px !important;">Hoje</span>
                                             </div>
                                         </div>
                                     </div>
@@ -54,9 +56,13 @@
                                                 <img src="../../../../assets/images/iconTotal.png" alt="" srcset="">
                                             </div>
                                             <div class="col-8">
-                                                <h1 style="font-size: 45px;"><strong><span style="font-weight: 100; font-size: 30px;"><small>€ </small></span>0,00 </strong></h1>
+                                                <h1 style="font-size: 45px;"><strong><span
+                                                            style="font-weight: 100; font-size: 30px;"><small>€
+                                                            </small></span>0,00 </strong></h1>
                                                 <h6 style="margin-top: -13px; font-weight: 100;">Rendimento Totais</h6>
-                                                <span style="font-size: 10px; font-weight: 100; margin-top: -100px !important;" >Últimos 30 dias</span>
+                                                <span
+                                                    style="font-size: 10px; font-weight: 100; margin-top: -100px !important;">Últimos
+                                                    30 dias</span>
                                             </div>
                                         </div>
                                     </div>
@@ -71,6 +77,64 @@
                                         <div>
                                             <img style="width: 200px; margin-left: auto; margin-right: auto; display: block !important;"
                                                 :src="qrcode" alt="" class="rounded mx-auto d-block" srcset="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" style="margin-top: -15%">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h5><strong> <i class="fa fa-check-square" aria-hidden="true"></i>
+                                                        Gestão de atendimento</strong></h5>
+                                            </div>
+                                            <div class="col-12 mt-3">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">#</th>
+                                                            <th scope="col">Atendente</th>
+                                                            <th scope="col">Status</th>
+                                                            <th scope="col">Mesa</th>
+                                                            <th scope="col">Tempo</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">1</th>
+                                                            <td>Mark</td>
+                                                            <td><span class="badge text-bg-success">A Recolher</span>
+                                                            </td>
+                                                            <td>M2</td>
+                                                            <td>
+                                                                <div class="progress" role="progressbar"
+                                                                    aria-label="Success example" aria-valuenow="25"
+                                                                    aria-valuemin="0" aria-valuemax="100">
+                                                                    <div class="progress-bar bg-success"
+                                                                        style="width: 180%">40 Seg</div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5" style="margin-top: -15%">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h5><strong> <i class="fa fa-pie-chart" aria-hidden="true"></i>
+                                                        Gestão de Pedidos</strong></h5>
+                                            </div>
+                                            <div class="col-12">
+                                                <canvas id="myChart"></canvas>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -120,6 +184,31 @@ export default {
         this.logo = decoded.restaurante.logo;
 
         console.log('Dados do usuário: ', decoded);
+
+
+
+
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
     }
 
 }

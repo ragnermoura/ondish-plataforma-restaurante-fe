@@ -65,29 +65,4 @@ export default {
     }
   },
 
-  configInicial: async (id_user) => {
-    try {
-      const response = await http.put(
-        "/usuario/edit/config",
-        {
-          id_user: id_user,
-        },
-        {
-          headers: {
-            Accept: "application/json",
-            "Access-Control-Allow-Headers": "*",
-            "Content-Type": "multipart/form-data",
-            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATH,PUT,DELETE",
-          },
-        }
-      );
-
-      return response;
-    } catch (error) {
-      console.error("An error occurred:", error);
-      throw error;
-    }
-  },
-
-
 };

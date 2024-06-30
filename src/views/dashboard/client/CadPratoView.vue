@@ -75,7 +75,7 @@
 
                     <div class="tab-pane fade show active" id="pills-home" v-if="tabPrato" role="tabpanel"
                         aria-labelledby="pills-home-tab" tabindex="0">
-                        <div class="container">
+                        <div class="container-fluid">
                             <div class="row">
                                 <div class="col-5">
                                     <div class="mb-3">
@@ -136,7 +136,7 @@
 
                                 <div class="col-12">
                                     <label for="exampleInputPassword1" class="form-label label-form">Descreva o prato
-                                    <small>| 300 caracteres</small></label>
+                                        <small>| 300 caracteres</small></label>
                                     <div class="form-floating">
                                         <textarea v-model="descricao" class="form-control" placeholder="Escreva aqui..."
                                             id="floatingTextarea2" style="height: 100px"></textarea>
@@ -248,7 +248,7 @@
                     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
                         tabindex="0">
 
-                        <div class="container">
+                        <div class="container-fluid">
                             <div class="row">
                                 <div class="col-12 mt-5">
                                     <table class="table">
@@ -264,47 +264,82 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="text-center">
+                                            <tr class="text-center" v-for="prato in listPratos" :key="prato.id_pratos">
                                                 <th scope="row">
                                                     <figure class="figure">
-                                                        <img src="https://www.cookwithnabeela.com/wp-content/uploads/2024/02/Hamburger.webp"
+                                                        <img v-if="prato.fotos && prato.fotos.length > 0"
+                                                            :src="`http://localhost:3000/public/${prato.fotos[0].foto}`"
                                                             class="thumb-prato-table figure-img img-fluid rounded"
-                                                            alt="...">
-
+                                                            alt="Imagem do prato">
+                                                        <img v-else src="http://localhost:3000/public/default-foto.png"
+                                                            class="thumb-prato-table figure-img img-fluid rounded"
+                                                            alt="Imagem padrão">
                                                     </figure>
                                                 </th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td><span class="badge text-bg-success">Secondary</span></td>
-                                                <td><span class="badge text-bg-dark">Secondary</span></td>
+                                                <td>{{ prato.titulo }}</td>
+                                                <td>€ {{ prato.valor }}</td>
+                                                <td><span class="badge text-bg-success">{{ prato.tipo_prato }}</span>
+                                                </td>
+                                                <td><span class="badge text-bg-dark">{{ prato.tipo_prato }}</span></td>
                                                 <td>
                                                     <div class="form-check form-switch">
                                                         <input style="margin-left: 10% !important;"
                                                             class="form-check-input" type="checkbox" role="switch"
-                                                            id="flexSwitchCheckChecked" checked>
+                                                            :id="`flexSwitchCheckChecked-${prato.id_pratos}`"
+                                                            :checked="prato.prato_do_dia !== 2"
+                                                            @change="alterarPratoDoDia(prato.id_pratos, $event.target.checked)">
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="row">
-                                                        <div
-                                                            style="display: flex; flex-direction: row; padding-left: 25%; padding-right: 30px;">
-                                                            <div class="col-4">
-                                                                <button type="button" class="btn btn-warning btn-sm"><i
-                                                                        class="fa fa-edit"></i></button>
-                                                            </div>
-                                                            <div class="col-4">
-                                                                <button type="button" class="btn btn-info btn-sm"><i
-                                                                        class="fa fa-eye"></i></button>
-                                                            </div>
-                                                            <div class="col-4">
-                                                                <button type="button" class="btn btn-danger btn-sm"><i
-                                                                        class="fa fa-trash"></i></button>
-                                                            </div>
+                                                    <div class="row"
+                                                        style="display: flex; flex-direction: row; padding-left: 25%; padding-right: 30px;">
+
+                                                        <div class="col-4">
+                                                            <button type="button" data-bs-toggle="modal"
+                                                                :data-bs-target="`#deletePrato${prato.id_pratos}`"
+                                                                class="btn btn-danger btn-sm"><i
+                                                                    class="fa fa-trash"></i></button>
                                                         </div>
 
+
+                                                        <div class="modal fade" :id="`deletePrato${prato.id_pratos}`"
+                                                            tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h1 class="modal-title fs-5 text-danger"
+                                                                            id="exampleModalLabel"><i
+                                                                                class="fa fa-bell"></i>
+                                                                            <strong>Atenção</strong>
+                                                                        </h1>
+                                                                        <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <img
+                                                                            src="../../../../assets/images/icons/iconTrash.gif">
+
+                                                                        <div class="alert alert-danger" role="alert">
+                                                                            Deseja apagar esse prato?
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">Fechar</button>
+                                                                        <button @click="handleDelete(prato.id_pratos)"
+                                                                            type="button" class="btn btn-danger"><i
+                                                                                class="fa fa-trash"></i> Sim,
+                                                                            apague!</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </td>
                                             </tr>
+
 
                                         </tbody>
                                     </table>
@@ -344,6 +379,7 @@ export default {
             textoBotao: "Gravar",
             autenticando: false,
             listcozinhas: [],
+            listPratos: [],
             imageSrc: null,
             maxImages: 10,
             valorPrato: "0,00",
@@ -382,6 +418,7 @@ export default {
 
         this.fecharCozinha();
         this.fetchListCozinhas();
+        this.fetchListPratos();
     },
 
     methods: {
@@ -446,6 +483,40 @@ export default {
             })
         },
 
+        async fetchListPratos() {
+            let id_restaurante = this.id_restaurante;
+            try {
+                const res = await api.meusPratos(id_restaurante);
+                if (res && res.data) {
+                    // Verifica se res.data é um array e, se não for, converte para array
+                    const pratos = Array.isArray(res.data) ? res.data : [res.data];
+                    // Filtra pratos válidos
+                    this.listPratos = pratos.filter(prato => prato && prato.id_pratos);
+                    console.log('Meus pratos aqui =====>', this.listPratos);
+                }
+            } catch (error) {
+                console.log('Erro ao buscar pratos:', error);
+            }
+        },
+
+        async alterarPratoDoDia(id_pratos, isChecked) {
+            try {
+                const pratoDoDia = isChecked ? 1 : 2;
+                const res = await api.pratoDia(id_pratos, pratoDoDia);
+
+                if (res.status === 200) {
+
+                    const pratoIndex = this.listPratos.findIndex(prato => prato.id_pratos === id_pratos);
+                    if (pratoIndex !== -1) {
+                        this.listPratos[pratoIndex].prato_do_dia = pratoDoDia;
+                    }
+
+                    this.fetchListPratos();
+                }
+            } catch (error) {
+                console.error('Erro ao atualizar prato do dia:', error);
+            }
+        },
 
         adicionarOpcoes() {
             this.opcoes.push({ titulo: "", tipo: "" });
@@ -527,8 +598,8 @@ export default {
 
                         this.msgSuccess = true;
                         setTimeout(() => {
-
                             this.msgSuccess = false;
+                            window.location.reload();
                         }, 2000);
                     }
                 })
@@ -536,6 +607,27 @@ export default {
                     console.error(err);
                 });
         },
+
+       async handleDelete(id) {
+
+            let id_prato = id
+
+            try {
+                const res = await api.deletePrato(id_prato);
+                if (res.status === 200) {
+
+                    setTimeout(() => {
+                        window.location.reload();
+
+                    }, 2000);
+
+                }
+
+            } catch (error) {
+                console.log('Erro ao buscar pratos:', error);
+            }
+
+        }
     }
 
 }

@@ -161,9 +161,9 @@
                                             <div v-if="mostrarSkeleton" class="skeleton-label"></div>
                                             <div v-if="mostrarSkeleton" class="skeleton-input"></div>
                                             <label v-if="!mostrarSkeleton" for="exampleInputEmail1"
-                                                class="form-label"><i class="fa fa-phone"></i> Telemóvel 2
+                                                class="form-label"><i class="fa fa-phone"></i> Telemóvel 2 
                                             </label>
-                                            <input type="text" required v-if="!mostrarSkeleton" class="form-control"
+                                            <input type="text"  v-if="!mostrarSkeleton" class="form-control"
                                                 v-model="telefone2" @input="aplicaMascaraTelefone2()"
                                                 placeholder="000000000" />
                                         </div>
@@ -173,9 +173,9 @@
                                             <div v-if="mostrarSkeleton" class="skeleton-label"></div>
                                             <div v-if="mostrarSkeleton" class="skeleton-input"></div>
                                             <label v-if="!mostrarSkeleton" for="exampleInputEmail1"
-                                                class="form-label"><i class="fa fa-globe"></i> Website
+                                                class="form-label"><i class="fa fa-globe"></i> Website <small>Opcional</small>
                                             </label>
-                                            <input type="text" required v-if="!mostrarSkeleton" class="form-control"
+                                            <input type="text"  v-if="!mostrarSkeleton" class="form-control"
                                                 v-model="website" placeholder="https://www.seu-site.pt" />
                                         </div>
                                     </div>
@@ -184,9 +184,9 @@
                                             <div v-if="mostrarSkeleton" class="skeleton-label"></div>
                                             <div v-if="mostrarSkeleton" class="skeleton-input"></div>
                                             <label v-if="!mostrarSkeleton" for="exampleInputEmail1"
-                                                class="form-label"><i class="fa fa-facebook"></i> Facebook
+                                                class="form-label"><i class="fa fa-facebook"></i> Facebook <small>Opcional</small>
                                             </label>
-                                            <input type="text" required v-if="!mostrarSkeleton" class="form-control"
+                                            <input type="text"  v-if="!mostrarSkeleton" class="form-control"
                                                 v-model="facebook"
                                                 placeholder="https://www.facebook.com/seu-restaurante/" />
                                         </div>
@@ -196,9 +196,9 @@
                                             <div v-if="mostrarSkeleton" class="skeleton-label"></div>
                                             <div v-if="mostrarSkeleton" class="skeleton-input"></div>
                                             <label v-if="!mostrarSkeleton" for="exampleInputEmail1"
-                                                class="form-label"><i class="fa fa-instagram"></i> Instagram
+                                                class="form-label"><i class="fa fa-instagram"></i> Instagram <small>Opcional</small>
                                             </label>
-                                            <input type="text" required v-if="!mostrarSkeleton" class="form-control"
+                                            <input type="text" v-if="!mostrarSkeleton" class="form-control"
                                                 v-model="instagram"
                                                 placeholder="https://www.instagram.com/seu-restaurante/" />
                                         </div>
@@ -446,7 +446,6 @@ export default {
         },
         async buscarEnderecoPorCodigoPostal(codigoPostal) {
             try {
-                const username = 'ragnermoura';
                 const response = await axios.get(`http://api.geonames.org/postalCodeSearchJSON?postalcode=${codigoPostal}&country=PT&username=ragnermoura`);
 
                 if (response.data.postalCodes.length > 0) {
@@ -479,7 +478,7 @@ export default {
             let ibam = this.ibam;
             const id_user = this.id_user;
 
-            if (nome_restaurante !== '' && nif !== '' && codigo_postal !== '' && morada !== '' && telefone1 !== '' && telefone2 !== '' && website !== '' && facebook !== '' && instagram !== '' && ibam !== '' && logo !== null && capa !== null) {
+            if (nome_restaurante !== '' && nif !== '' && codigo_postal !== '' && morada !== '' && telefone1 !== '' && telefone2 !== '' &&  ibam !== '' && logo !== null && capa !== null) {
 
                 try {
                     const formData = new FormData();
@@ -501,8 +500,6 @@ export default {
                     if (res.status === 202) {
                         this.success = true;
                         this.textoBotao = 'Sucesso redirecionando...';
-
-                        api.configInicial(id_user);
                        
                         setTimeout(() => {
                             this.autenticando = false;

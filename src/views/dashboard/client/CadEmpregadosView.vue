@@ -27,6 +27,10 @@
                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                         aria-labelledby="pills-home-tab" tabindex="0">
                         <div class="container">
+
+                            <div v-if="successo" class="alert alert-success mb-4" role="alert">
+                                <i class="fa fa-check"></i> Funcionario adicionado(a) com sucesso!
+                            </div>
                             <div class="row">
                                 <div class="col-12">
                                     <div class="mb-3">
@@ -45,25 +49,27 @@
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label label-form"><i
                                                 class="fa fa-user"></i> Nome</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1">
+                                        <input type="text" v-model="nome" class="form-control"
+                                            id="exampleInputPassword1">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label label-form"><i
-                                                class="fa fa-user"></i> Sobrenome</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1">
+                                                class="fa fa-user"></i> Apelido</label>
+                                        <input type="text" v-model="sobrenome" class="form-control"
+                                            id="exampleInputPassword1">
                                     </div>
                                 </div>
                                 <div class="col-3">
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label label-form"><i
                                                 class="fa fa-circle"></i> Genero</label>
-                                        <select class="form-control" id="exampleInputPassword1">
+                                        <select class="form-control" v-model="genero" id="exampleInputPassword1">
                                             <option value="" disabled selected>Escolha</option>
-                                            <option value="1">Marculino</option>
-                                            <option value="2">Feminino</option>
-                                            <option value="3">Outros</option>
+                                            <option value="Masculino">Masculino</option>
+                                            <option value="Feminino">Feminino</option>
+                                            <option value="Outros">Outros</option>
                                         </select>
                                     </div>
                                 </div>
@@ -71,15 +77,13 @@
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label label-form"><i
                                                 class="fa fa-id-card-o"></i> Função</label>
-                                        <select class="form-control" id="exampleInputPassword1">
+                                        <select class="form-control" v-model="funcao" id="exampleInputPassword1">
                                             <option value="" disabled selected>Escolha</option>
-                                            <option value="1">Empregado de mesa</option>
-                                            <option value="2">Gerente</option>
+                                            <option value="Empregado de mesa">Empregado de mesa</option>
+                                            <option value="Gerente">Gerente</option>
                                         </select>
                                     </div>
                                 </div>
-
-
 
                                 <hr>
 
@@ -89,8 +93,9 @@
 
                         </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-5">
-                            <button class="btn btn-success me-md-2" type="button"><i class="fa fa-check"></i>
-                                Gravar</button>
+                            <button class="btn btn-success me-md-2" :disabled="autenticando" @click="handleValidar()"
+                                type="button"><i class="fa fa-check"></i>
+                                {{ textoBotao }}</button>
 
                         </div>
 
@@ -105,35 +110,33 @@
                                         <thead>
                                             <tr class="text-center">
                                                 <th scope="col"></th>
-                                                <th scope="col">Nome do prato</th>
-                                                <th scope="col">Valor</th>
-                                                <th scope="col">Cozinha</th>
-                                                <th scope="col">Tipo</th>
-                                                <th scope="col">Prato do dia</th>
+                                                <th scope="col">Nome</th>
+                                                <th scope="col">Genero</th>
+                                                <th scope="col">Função</th>
                                                 <th scope="col">Ação</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="text-center">
+                                            <tr class="text-center" v-for="funcionario in listFuncionarios"
+                                                :key="funcionario.id_funcionario">
                                                 <th scope="row">
                                                     <figure class="figure">
-                                                        <img src="https://www.cookwithnabeela.com/wp-content/uploads/2024/02/Hamburger.webp"
+                                                        <img :src="`http://localhost:3000/public${funcionario.foto}`"
                                                             class="thumb-prato-table figure-img img-fluid rounded"
-                                                            alt="...">
+                                                            alt="Imagem do Funcionário">
+
 
                                                     </figure>
                                                 </th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td><span class="badge text-bg-success">Secondary</span></td>
-                                                <td><span class="badge text-bg-dark">Secondary</span></td>
+
                                                 <td>
-                                                    <div class="form-check form-switch">
-                                                        <input style="margin-left: 10% !important;"
-                                                            class="form-check-input" type="checkbox" role="switch"
-                                                            id="flexSwitchCheckChecked" checked>
-                                                    </div>
+                                                    {{ funcionario.nome }} {{ funcionario.sobrenome }}
                                                 </td>
+                                                <td><span class="badge text-bg-success">{{ funcionario.genero }}</span>
+                                                </td>
+                                                <td><span class="badge text-bg-dark">{{ funcionario.funcao }}</span>
+                                                </td>
+
                                                 <td>
                                                     <div class="row">
                                                         <div
@@ -174,9 +177,9 @@
 import Sidebar from "../../../../components/SideBar/SideComp.vue";
 import NavBar from "../../../../components/NavBar/NavComp.vue";
 import Footer from "../../../../components/Footer/FooterComp.vue";
-import api from '../../../../services/api/auth/index.js'
+import api from '../../../../services/api/client/funcionario'
 import { jwtDecode } from "jwt-decode";
-import axios from 'axios';
+
 
 export default {
     name: 'CadEmpregadosView',
@@ -184,13 +187,29 @@ export default {
     data() {
         return {
             token: localStorage.getItem('token'),
-            imageUrl: null
+            imageUrl: null,
+            avatar: null,
+            nome: '',
+            sobrenome: '',
+            genero: '',
+            funcao: '',
+            successo: false,
+            id_restaurante: '',
+            textoBotao: 'Gravar',
+            listFuncionarios: []
         }
     },
     components: {
         Sidebar,
         NavBar,
         Footer,
+    },
+    mounted() {
+        const decoded = jwtDecode(this.token);
+        this.id_restaurante = decoded.restaurante.id_restaurante;
+
+        this.fetchListFuncionarios();
+
     },
     methods: {
         triggerFileInput() {
@@ -204,8 +223,84 @@ export default {
                     this.imageUrl = e.target.result;
                 };
                 reader.readAsDataURL(file);
+                this.avatar = file;
             }
-        }
+        },
+
+
+        async handleValidar() {
+            this.autenticando = true;
+            this.textoBotao = 'Guardando...';
+
+            let nome = this.nome;
+            let sobrenome = this.sobrenome;
+            let genero = this.genero;
+            let funcao = this.funcao;
+            let avatar = this.avatar
+
+            if (nome !== '' && sobrenome !== '' && genero !== '' && genero !== '') {
+                try {
+                    const formData = new FormData();
+                    formData.append('nome', nome);
+                    formData.append('sobrenome', sobrenome);
+                    formData.append('genero', genero);
+                    formData.append('funcao', funcao);
+                    formData.append('foto', avatar);
+                    formData.append('id_restaurante', this.id_restaurante);
+
+                    const res = await api.novoFuncionario(formData);
+                    if (res.status === 202) {
+                        this.success = true;
+                        this.textoBotao = 'Sucesso!';
+
+                        this.nome = ''
+                        this.sobrenome = '';
+                        this.genero = '';
+                        this.funcao = '';
+                        this.imageUrl = null;
+
+
+                        setTimeout(() => {
+                            this.autenticando = false;
+                            this.success = false;
+                            this.textoBotao = 'Gravar';
+                        }, 3000);
+
+                    }
+                } catch (err) {
+                    console.log(err);
+                    this.autenticando = false;
+                    this.textoBotao = 'Tentar novamente...';
+                    this.erro = true;
+
+                    setTimeout(() => {
+                        this.erro = false;
+                    }, 4000);
+                }
+            } else {
+                this.autenticando = false;
+                this.textoBotao = 'Tentar novamente...';
+
+                setTimeout(() => {
+                    this.campoNullError = false;
+                }, 4000);
+            }
+        },
+
+
+        async fetchListFuncionarios() {
+            let id_restaurante = this.id_restaurante;
+            try {
+                const res = await api.meusFuncionarios(id_restaurante);
+
+                this.listFuncionarios = res.data;
+
+                console.log(this.listFuncionarios)
+
+            } catch (error) {
+                console.log('Erro ao buscar pratos:', error);
+            }
+        },
     }
 
 }

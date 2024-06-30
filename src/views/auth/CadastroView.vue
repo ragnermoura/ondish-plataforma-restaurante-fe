@@ -232,7 +232,7 @@ export default {
             confimSenha: '',
 
             id_user: '',
-            campoNullError: false,
+           
             textoBotao: "Salvar",
             autenticando: false,
 

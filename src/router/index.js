@@ -9,6 +9,7 @@ import PedidosView from '../views/dashboard/client/PedidoView.vue';
 import MesasView from '../views/dashboard/client/CadMesasView.vue';
 import EmpregadoView from '../views/dashboard/client/CadEmpregadosView.vue';
 import InicialView from '../views/auth/InitView.vue';
+import RestaurantClient from '../views/dashboard/client/MyRestaurantView.vue';
 import md5 from 'crypto-js/md5';
 
 const generateMD5 = () => {
@@ -32,10 +33,27 @@ const router = createRouter({
         next(`/my-dashboard/${hash}`);
       }
     },
+
     {
       path: '/my-dashboard/:hash',
       name: 'DashboardClientWithHash',
       component: DashboardClient
+    },
+
+    {
+      path: '/my-restaurant',
+      name: 'RestaurantClient',
+      component: RestaurantClient,
+      beforeEnter: (to, from, next) => {
+        const hash = generateMD5();
+        next(`/my-restaurant/${hash}`);
+      }
+    },
+
+    {
+      path: '/my-restaurant/:hash',
+      name: 'RestaurantClientWithHash',
+      component: RestaurantClient
     },
 
 
@@ -56,7 +74,7 @@ const router = createRouter({
     },
 
 
-    
+
     {
       path: '/area-prato',
       name: 'CadPrato',

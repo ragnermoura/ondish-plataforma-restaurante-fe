@@ -11,7 +11,7 @@
                     <h1 v-if="!mostrarSkeleton" class="h3 mb-3"><strong>Pedidos</strong></h1>
                 </div>
 
-                <div class="container">
+                <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
                             <div class="card">

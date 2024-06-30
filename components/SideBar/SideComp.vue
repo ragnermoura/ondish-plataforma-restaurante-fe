@@ -107,6 +107,11 @@
                         <i class="align-middle" data-feather="home"></i> <span class="align-middle">Dashboard</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/my-restaurant">
+                        <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Meu Restaurante</span>
+                    </a>
+                </li>
 
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/pedidos">
@@ -129,7 +134,8 @@
 
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/area-bebida">
-                        <i class="align-middle" data-feather="plus-circle"></i> <span class="align-middle">Bebidas</span>
+                        <i class="align-middle" data-feather="plus-circle"></i> <span
+                            class="align-middle">Bebidas</span>
                     </a>
                 </li>
 

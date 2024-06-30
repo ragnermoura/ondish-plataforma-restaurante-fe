@@ -23,10 +23,10 @@ jobs:
     - name: Deploy to Cpanel
       uses: SamKirkland/FTP-Deploy-Action@4.1.0
       with:
-        server: ftp://rebornbroke.com
+        server: server35.integrator.com.br
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         port: 21
         protocol: ftp
         local-dir: ./
-        server-dir: /public_html/plataformagestao/
+        server-dir: /ondish_plataforma/

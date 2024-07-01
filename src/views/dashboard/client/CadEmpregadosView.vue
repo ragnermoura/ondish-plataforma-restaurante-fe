@@ -121,7 +121,7 @@
                                                 :key="funcionario.id_funcionario">
                                                 <th scope="row">
                                                     <figure class="figure">
-                                                        <img :src="`http://localhost:3000/public${funcionario.foto}`"
+                                                        <img :src="`https://ondish.webserverapi.online/api/public${funcionario.foto}`"
                                                             class="thumb-prato-table figure-img img-fluid rounded"
                                                             alt="Imagem do Funcionário">
 

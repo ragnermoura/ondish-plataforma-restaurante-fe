@@ -71,7 +71,7 @@
                             <div class="col-md-3 mt-3">
                                 <div class="card">
                                     <img style="border-radius: 300px !important; width: 150px; border: 6px solid; margin-top: -30px;"
-                                        :src="`http://localhost:3000/public${logo}`" class="rounded mx-auto d-block"
+                                        :src="`https://ondish.webserverapi.online/api/public${logo}`" class="rounded mx-auto d-block"
                                         alt="...">
                                     <div class="card-body">
                                         <div>

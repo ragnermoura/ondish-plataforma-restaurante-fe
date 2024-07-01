@@ -33,6 +33,11 @@
                         <i class="fa fa-check"></i> Prato adicionado com sucesso!
                     </div>
 
+
+                    <div v-if="msgError" class="alert alert-danger mt-3 mb-3" role="alert">
+                        <i class="fa fa-ban"></i> Houve um erro ao adicionar seu prato, reveja as informações enviadas!
+                    </div>
+
                     <div v-if="tabCozinha">
                         <hr>
 
@@ -105,8 +110,6 @@
                                         <p class="text-info-taxa"><span><small class="text-danger"><i
                                                         class="fa fa-info"></i> É sempre cobrado 12% em cima do valor
                                                     total</small></span></p>
-
-
                                     </div>
                                 </div>
 
@@ -268,10 +271,11 @@
                                                 <th scope="row">
                                                     <figure class="figure">
                                                         <img v-if="prato.fotos && prato.fotos.length > 0"
-                                                            :src="`http://localhost:3000/public/${prato.fotos[0].foto}`"
+                                                            :src="`https://ondish.webserverapi.online/api/public/${prato.fotos[0].foto}`"
                                                             class="thumb-prato-table figure-img img-fluid rounded"
                                                             alt="Imagem do prato">
-                                                        <img v-else src="http://localhost:3000/public/default-foto.png"
+                                                        <img v-else
+                                                            src="https://ondish.webserverapi.online/api/public/default-foto.png"
                                                             class="thumb-prato-table figure-img img-fluid rounded"
                                                             alt="Imagem padrão">
                                                     </figure>
@@ -433,7 +437,11 @@ export default {
         },
         prepararDadosParaEnvio() {
             const valorPratoNumerico = parseFloat(this.valor.replace(/\./g, '').replace(',', '.')).toFixed(2);
-            return valorPratoNumerico;
+            const taxaOndishNumerica = (valorPratoNumerico * 0.12).toFixed(2);
+            return {
+                valor: valorPratoNumerico,
+                taxa_ondish: taxaOndishNumerica
+            };
         },
 
         adicionarCozinhaTab() {
@@ -566,8 +574,10 @@ export default {
             formData.append("id_restaurante", this.id_restaurante);
             formData.append("id_cozinha", this.id_cozinha);
             formData.append("tipo_prato", this.tipo_prato);
-            formData.append('valor', this.valor);
-            formData.append('taxa_ondish', this.taxa);
+
+            const valores = this.prepararDadosParaEnvio();
+            formData.append('valor', valores.valor);
+            formData.append('taxa_ondish', valores.taxa_ondish);
             formData.append("titulo", this.titulo);
             formData.append("descricao", this.descricao);
 
@@ -595,10 +605,20 @@ export default {
                         this.valor = "";
                         this.titulo = "";
                         this.opcoes = [{ titulo: "", tipo: "", valorAdicional: "0,00" }];
+                        this.imageSrc = null,
 
-                        this.msgSuccess = true;
+                            this.msgSuccess = true;
                         setTimeout(() => {
                             this.msgSuccess = false;
+                            window.location.reload();
+                        }, 2000);
+                    } else if (res.status === 500) {
+                        this.msgError = true;
+                        this.autenticando = false;
+                        this.textoBotao = "Tente novamente...";
+
+                        setTimeout(() => {
+                            this.msgError = false;
                             window.location.reload();
                         }, 2000);
                     }
@@ -608,7 +628,7 @@ export default {
                 });
         },
 
-       async handleDelete(id) {
+        async handleDelete(id) {
 
             let id_prato = id
 

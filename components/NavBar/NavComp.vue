@@ -83,7 +83,7 @@
                     <a v-if="image" class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
                         data-bs-toggle="dropdown">
                         
-                        <img :src="`http://localhost:3000/public${image}`" class="avatar img-fluid rounded me-1"
+                        <img :src="`https://ondish.webserverapi.online/api/public${image}`" class="avatar img-fluid rounded me-1"
                             alt="Imagem de perfil" /> <span class="text-dark">{{ nome }} {{ sobrenome }}</span>
                     </a>
                     <a v-if="image == null || image == '/avatar/default-avatar.png'"

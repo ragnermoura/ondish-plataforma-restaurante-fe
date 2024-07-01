@@ -13,9 +13,17 @@
 
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-md-12">
+                            <div class="alert alert-warning" role="alert">
+                               <strong> 🥺 Desculpe...</strong> Ainda não há pedidos registados.
+                            </div>
+                            <img style="display: block; margin-left: auto; margin-right: auto; opacity: 0.3;"
+                                src="../../../../assets/images/pedidos.png" alt="">
+                        </div>
+                        <div class="col-12" v-if="pedidosView">
                             <div class="card">
                                 <div class="card-body">
+
                                     <div class="row">
                                         <div class="col-4">
                                             <h4 class="text-center"><small><i class="fa fa-circle text-danger"></i> A
@@ -54,12 +62,12 @@
                                         </div>
                                     </div>
 
-                                    
+
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-12">
+                        <div class="col-12" v-if="pedidosView">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
@@ -100,12 +108,12 @@
                                         </div>
                                     </div>
 
-                                    
+
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-12">
+                        <div class="col-12" v-if="pedidosView">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
@@ -146,7 +154,7 @@
                                         </div>
                                     </div>
 
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -173,6 +181,7 @@ export default {
     data() {
         return {
             token: localStorage.getItem('token'),
+            pedidosView: false
         }
     },
     components: {

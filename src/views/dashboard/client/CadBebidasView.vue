@@ -44,21 +44,6 @@
                                     </div>
                                 </div>
                         
-
-                                <div class="col-4">
-                                    <div class="mb-3">
-                                        <label for="exampleInputPassword1" class="form-label label-form"><i
-                                                class="fa fa-tag"></i> Taxa
-                                            Ondish</label>
-                                        <h3 class="taxa-ondish"><strong>30,00€</strong></h3>
-                                        <p class="text-info-taxa"><span><small class="text-danger"><i
-                                                        class="fa fa-info"></i> É sempre cobrado 12% em cima do valor
-                                                    total</small></span></p>
-
-
-                                    </div>
-                                </div>
-
                                 <div class="col-4">
                                     <div class="mb-3">
                                        
@@ -67,10 +52,10 @@
                                                 class="fa fa-tag"></i> Tipo da bebida</label>
                                             <select class="form-select form-select-lg mb-3"
                                                 aria-label="Large select example">
-                                                <option selected>Open this select menu</option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
+                                                <option selected>Escolha</option>
+                                                <option value="Alcoólico">Alcoólico</option>
+                                                <option value="Não Alcoólico">Não Alcoólico</option>
+                                                <option value="Sumo">Sumo</option>
                                             </select>
                                         </div>
                                     </div>

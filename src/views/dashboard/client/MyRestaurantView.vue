@@ -13,6 +13,8 @@
 
                 <div class="container-fluid">
                     <div class="row">
+
+                       
                         <ul class="nav nav-pills mb-3 mt-4" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
@@ -27,13 +29,25 @@
                                         aria-hidden="true"></i> &nbsp; Fora</button>
                             </li>
                             <div class="row" style="margin-left: 50%;">
-                                <div class="col-4"><i class="fa fa-square fa-2x text-success" aria-hidden="true"></i> Livre</div>
-                                <div class="col-4"><i class="fa fa-square fa-2x text-warning" aria-hidden="true"></i> Reservada</div>
-                                <div class="col-4"><i class="fa fa-square fa-2x text-primary" aria-hidden="true"></i> Em uso</div>
+                                <div class="col-4"><i class="fa fa-square fa-2x text-success" aria-hidden="true"></i>
+                                    Livre</div>
+                                <div class="col-4"><i class="fa fa-square fa-2x text-warning" aria-hidden="true"></i>
+                                    Reservada</div>
+                                <div class="col-4"><i class="fa fa-square fa-2x text-primary" aria-hidden="true"></i> Em
+                                    uso</div>
 
                             </div>
 
                         </ul>
+
+                        <div class="alert alert-warning" role="alert">
+                            <strong> 🥺 Mantenha a calma...</strong> Suas mesas aparecerão aqui automaticamente.
+                        </div>
+
+                        <div class="col-md-12">
+                            <img style="display: block; margin-left: auto; margin-right: auto; opacity: 0.3;"
+                                src="../../../../assets/images/mesas.png" alt="">
+                        </div>
 
                     </div>
 

@@ -115,7 +115,7 @@
 
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/pedidos">
-                        <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Pedidos</span>
+                        <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Pedidos </span>
                     </a>
                 </li>
 
@@ -133,15 +133,15 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/area-bebida">
+                    <a class="sidebar-link" href="#">
                         <i class="align-middle" data-feather="plus-circle"></i> <span
-                            class="align-middle">Bebidas</span>
+                            class="align-middle">Bebidas <span><small><i class="fa fa-lock"></i></small></span></span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/novo-condominio">
-                        <i class="align-middle" data-feather="coffee"></i> <span class="align-middle">Sobremesa</span>
+                    <a class="sidebar-link" href="#">
+                        <i class="align-middle" data-feather="coffee"></i> <span class="align-middle">Sobremesa <span><small><i class="fa fa-lock"></i></small></span></span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -161,15 +161,15 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/novo-ticket">
-                        <i class="align-middle" data-feather="plus"></i> <span class="align-middle">Entradas <span
+                    <a class="sidebar-link" href="#">
+                        <i class="align-middle" data-feather="plus"></i> <span class="align-middle">Entradas <span><small><i class="fa fa-lock"></i></small></span><span
                                 class="badge text-bg-danger">0</span></span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/novo-ticket">
-                        <i class="align-middle" data-feather="minus"></i> <span class="align-middle">Saídas <span
+                    <a class="sidebar-link" href="#">
+                        <i class="align-middle" data-feather="minus"></i> <span class="align-middle">Saídas <span><small><i class="fa fa-lock"></i></small></span><span
                                 class="badge text-bg-danger">0</span></span>
                     </a>
                 </li>
@@ -179,8 +179,8 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/novo-ticket">
-                        <i class="align-middle" data-feather="tag"></i> <span class="align-middle">Tickets <span
+                    <a class="sidebar-link" href="#">
+                        <i class="align-middle" data-feather="tag"></i> <span class="align-middle">Tickets <span><small><i class="fa fa-lock"></i></small></span><span
                                 class="badge text-bg-danger">0</span></span>
                     </a>
                 </li>

@@ -51,7 +51,7 @@
                                             class="fa fa-close"></i> Retornar</small></button></span>
                         </div>
                         <div class="row">
-                            <div v-if="successoCozinha" class="alert alert-success" role="alert">
+                            <div v-if="successoCozinha" class="alert alert-success mt-3" role="alert">
                                 <i class="fa fa-check"></i> Cozinha adicionada com sucesso!
                             </div>
                             <div class="col-4 mt-4">
@@ -225,10 +225,12 @@
                                 <div class="col-2">
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label label-form">Valor</label>
-                                        <input type="text" v-model="opcoes[index].valor" class="form-control"
+                                        <input type="text" v-model="opcoes[index].valorAdicional"
+                                            @input="aplicaMascaraMoedaOpcao(index)" class="form-control"
                                             id="valorAdicional">
                                     </div>
                                 </div>
+
                                 <div class="col-2 mt-4" style="margin-top: 34px !important;">
                                     <button class="btn btn-success" @click="adicionarOpcoes"
                                         v-if="index === opcoes.length - 1" type="button">
@@ -238,6 +240,7 @@
                                         <i class="fa fa-minus"></i>
                                     </button>
                                 </div>
+
                             </div>
                         </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-5">
@@ -378,7 +381,7 @@ export default {
             valor: "",
             titulo: "",
             descricao: "",
-            opcoes: [{ titulo: "", tipo: "", valor: "0,00" }],
+            opcoes: [{ titulo: "", tipo: "", valorAdicional: "" }],
             images: [],
             textoBotao: "Gravar",
             autenticando: false,
@@ -386,7 +389,6 @@ export default {
             listPratos: [],
             imageSrc: null,
             maxImages: 10,
-            valorPrato: "0,00",
             msgSuccess: false,
             msgError: false,
 
@@ -435,12 +437,31 @@ export default {
             valor = (parseFloat(valor) / 100).toFixed(2);
             this.valor = valor.replace(".", ",").replace(/(\d)(?=(\d{3})+\,)/g, "$1.");
         },
+
+        aplicaMascaraMoedaOpcao(index) {
+            let valorExtra = this.opcoes[index].valorAdicional.replace(/\D/g, '');
+            if (valorExtra === '') {
+                this.opcoes[index].valorAdicional = '0,00';
+                return;
+            }
+            valorExtra = (parseFloat(valorExtra) / 100).toFixed(2);
+            valorExtra = valorExtra.replace(".", ",").replace(/(\d)(?=(\d{3})+\,)/g, "$1.");
+            this.opcoes[index].valorAdicional = valorExtra;
+        },
+
         prepararDadosParaEnvio() {
             const valorPratoNumerico = parseFloat(this.valor.replace(/\./g, '').replace(',', '.')).toFixed(2);
             const taxaOndishNumerica = (valorPratoNumerico * 0.12).toFixed(2);
+
+            const opcoes = this.opcoes.map(opcao => ({
+                ...opcao,
+                valorAdicional: parseFloat(opcao.valorAdicional.replace(/\./g, '').replace(',', '.')).toFixed(2)
+            }));
+
             return {
                 valor: valorPratoNumerico,
-                taxa_ondish: taxaOndishNumerica
+                taxa_ondish: taxaOndishNumerica,
+                opcoes: opcoes
             };
         },
 
@@ -481,14 +502,16 @@ export default {
             }).catch(err => { })
         },
 
-        fetchListCozinhas() {
+        async fetchListCozinhas() {
             let id_restaurante = this.id_restaurante;
-            api.minhasCozinhas(id_restaurante).then(res => {
-                this.listcozinhas = res.data
+            try {
+                const res = await api.minhasCozinhas(id_restaurante).then(res => {
+                    this.listcozinhas = res.data;
+                })
+            } catch (error) {
+                console.log('Erro ao buscar cozinhas:', error);
+            }
 
-            }).catch(error => {
-                console.log(error)
-            })
         },
 
         async fetchListPratos() {
@@ -496,11 +519,8 @@ export default {
             try {
                 const res = await api.meusPratos(id_restaurante);
                 if (res && res.data) {
-                    // Verifica se res.data é um array e, se não for, converte para array
                     const pratos = Array.isArray(res.data) ? res.data : [res.data];
-                    // Filtra pratos válidos
                     this.listPratos = pratos.filter(prato => prato && prato.id_pratos);
-                    console.log('Meus pratos aqui =====>', this.listPratos);
                 }
             } catch (error) {
                 console.log('Erro ao buscar pratos:', error);
@@ -527,7 +547,7 @@ export default {
         },
 
         adicionarOpcoes() {
-            this.opcoes.push({ titulo: "", tipo: "" });
+            this.opcoes.push({ titulo: "", tipo: "", valorAdicional: "0.00" });
         },
         removerOpcoes(index) {
             this.opcoes.splice(index, 1);
@@ -604,7 +624,7 @@ export default {
                         this.tipo_prato = "";
                         this.valor = "";
                         this.titulo = "";
-                        this.opcoes = [{ titulo: "", tipo: "", valorAdicional: "0,00" }];
+                        this.opcoes = [{ titulo: "", tipo: "", valorAdicional: "0.00" }];
                         this.imageSrc = null,
 
                             this.msgSuccess = true;

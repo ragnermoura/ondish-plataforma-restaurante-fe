@@ -92,9 +92,9 @@
                         <span class="text-dark">{{ nome }} {{ sobrenome }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item" href="/seu-perfil"><i class="align-middle me-1"
+                        <a class="dropdown-item" href="#"><i class="align-middle me-1"
                                 data-feather="user"></i>
-                            Perfil</a>
+                            Perfil <span><small><i class="fa fa-lock"></i></small></span></a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href=""><i class="align-middle me-1" data-feather="file"></i>
                             Termos & Condições</a>
